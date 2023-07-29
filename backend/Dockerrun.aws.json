@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "springboot-fullstack-app",
+      "image": "mltechspace/springboot-fullstack-app:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://awseb-e-ueiysyvsg2-stack-awsebrdsdatabase-4lb0jlurlgtx.coicqzoe8bfb.eu-west-3.rds.amazonaws.com:5432/customer"
+        }
+      ]
+    }
+  ]
+}
