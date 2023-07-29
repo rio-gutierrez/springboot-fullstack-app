@@ -1,0 +1,40 @@
+name: CI - Build Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - backend/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15.3-alpine3.18
+        env:
+          POSTGRES_USER: ascend
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: customer
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Clone (checkout) repo into `ubuntu-latest` machine that will run our CI
+        uses: actions/checkout@v3
+      - name: Install required version of Java into `ubuntu-latest`
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '19'
+          cache: 'maven'
+      - name: Build and run Unit/Integration Tests with Maven
+        run: mvn -ntp -B verify
