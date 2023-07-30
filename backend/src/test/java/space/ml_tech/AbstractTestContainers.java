@@ -23,7 +23,7 @@ public abstract class AbstractTestContainers {
     @BeforeAll
     static void beforeAll() {
         Flyway flyway = Flyway
-                .configure()
+                .configur()
                 .dataSource(
                         postgreSQLContainer.getJdbcUrl(),
                         postgreSQLContainer.getUsername(),
