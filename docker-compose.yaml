@@ -3,9 +3,12 @@ services:
     container_name: postgres
     image: postgres:15.3-alpine3.18
     environment:
-      POSTGRES_USER: ascend
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: /run/secrets/postgres_user
+      POSTGRES_PASSWORD: /run/secrets/postgres_password
       PGDATA: /data/postgres
+    secrets:
+      - postgres_user
+      - postgres_password
     volumes:
       - db:/data/postgres
     ports:
@@ -34,3 +37,9 @@ networks:
 
 volumes:
   db:
+
+secrets:
+  postgres_user:
+    file: ./.postgres_user.txt
+  postgres_password:
+    file: ./.postgres_password.txt

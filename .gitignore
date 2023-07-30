@@ -4,6 +4,10 @@
 **/.DS_Store
 **/*.iml
 
+# secrets
+.postgres_user.txt
+.postgres_password.txt
+
 # Javascript
 
 # Logs
