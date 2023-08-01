@@ -25,7 +25,7 @@ public class CustomerService {
         return customerDao.selectCustomerById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException(
-                                "customer with id %s not found".formatted(id)
+                                "customer with id %s not found!".formatted(id)
                         )
                 );
     }
