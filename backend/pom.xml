@@ -16,17 +16,13 @@
 	<name>springboot-fullstack-app</name>
 	<description>Fullstack Project Using SpringBoot and React/Angular</description>
 
-	<organization>
-		<name>mltechspace</name>
-		<url>https://ml-tech.space</url>
-	</organization>
-
-
 	<properties>
 		<java.version>19</java.version>
 		<maven.compiler.source>19</maven.compiler.source>
 		<maven.compiler.target>19</maven.compiler.target>
 		<docker.username>mltechspace</docker.username>
+		<docker.image.name>springboot-fullstack-app</docker.image.name>
+		<docker.image.tag/>
 	</properties>
 
 	<dependencies>
@@ -198,7 +194,7 @@
 					</from>
 					<to>
 						<image>
-							docker.io/${organization.name}/${project.artifactId}:${project.version}
+							docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}
 						</image>
 						<tags>
 							<tag>latest</tag>
