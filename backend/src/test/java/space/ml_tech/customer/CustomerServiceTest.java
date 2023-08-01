@@ -65,7 +65,7 @@ class CustomerServiceTest {
         // Then
         assertThatThrownBy(() -> customerService.getCustomer(randomId))
                 .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessage("customer with id %s not found".formatted(randomId));
+                .hasMessage("customer with id %s not found!".formatted(randomId));
     }
 
     @Test
