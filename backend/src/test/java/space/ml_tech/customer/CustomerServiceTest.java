@@ -54,7 +54,6 @@ class CustomerServiceTest {
 
         // Then
         assertThat(actual).isEqualTo(customer);
-        System.out.println("Yoooooo");
     }
 
     @Test
