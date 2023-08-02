@@ -21,10 +21,8 @@ public interface CustomerDao {
         // DELETE methods
         void deletePersonById(Integer id);
 
-
         // PUT methods
         void updatePerson(Customer customer);
-
 
         // Misc methods
         boolean existsPersonWithEmail(String email);
