@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "springboot-fullstack-app",
-      "image": "mltechspace/springboot-fullstack-app:latest",
+      "image": "mltechspace/springboot-fullstack-app:02.08.2023.23.35.54",
       "essential": true,
       "memory": 512,
       "portMappings": [
