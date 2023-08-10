@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomerService {
     private final CustomerDao customerDao;
 
-    public CustomerService(@Qualifier("beanOfTypeJpa") CustomerDao customerDao){
+    public CustomerService(@Qualifier("beanOfTypeJdbc") CustomerDao customerDao){
         this.customerDao = customerDao;
     }
 
