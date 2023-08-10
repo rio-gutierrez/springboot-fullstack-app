@@ -12,6 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import space.ml_tech.customer.Customer;
 import space.ml_tech.customer.CustomerDTO;
+import space.ml_tech.customer.Gender;
 
 import java.util.List;
 import java.util.Random;
@@ -34,6 +35,7 @@ public class CustomerIntegrationTest {
     private final String name = faker.name().fullName();
     private final String email = faker.internet().safeEmailAddress() + "-" + UUID.randomUUID() + "ml-tech.space";
     private final int age = RANDOM_INT.nextInt(1, 100);
+    private final Gender gender = Gender.MALE;
 
 
     /* ----------------------------
@@ -51,7 +53,7 @@ public class CustomerIntegrationTest {
          */
 
         // Step 1 - Create customer registration request
-        CustomerDTO request = new CustomerDTO(name, email, age);
+        CustomerDTO request = new CustomerDTO(name, email, age, gender);
 
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -77,6 +79,7 @@ public class CustomerIntegrationTest {
                 .name(name)
                 .email(email)
                 .age(age)
+                .gender(gender)
                 .build();
 
         assertThat(allCustomers).usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
@@ -119,7 +122,7 @@ public class CustomerIntegrationTest {
          */
 
         // Step 1 - Create customer registration request
-        CustomerDTO request = new CustomerDTO(name, email, age);
+        CustomerDTO request = new CustomerDTO(name, email, age, gender);
 
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -169,9 +172,9 @@ public class CustomerIntegrationTest {
      ---------------------------- */
     @Test
     void canUpdateCustomer() {
-        /* The flow we follow using Postman to test our API for deleting
-         * a customer and then making sure the customer does not exist
-         * after deletion looks as follows:
+        /* The flow we follow using Postman to test our API for updating
+         * a customer and then making sure the customer has indeed been
+         * updated looks as follows:
          *  - create customer registration request
          *  - get all customers
          *  - get customer by id
@@ -180,7 +183,7 @@ public class CustomerIntegrationTest {
          */
 
         // Step 1 - Create customer registration request
-        CustomerDTO request = new CustomerDTO(name, email, age);
+        CustomerDTO request = new CustomerDTO(name, email, age, gender);
 
         webTestClient.post()
                 .uri(CUSTOMER_URI)
@@ -211,7 +214,7 @@ public class CustomerIntegrationTest {
 
         // Step 5 - Update the customer
         String newName = "Venom Snake";
-        CustomerDTO updatedCustomerDto = new CustomerDTO(newName, null, null);
+        CustomerDTO updatedCustomerDto = new CustomerDTO(newName, null, null, Gender.MALE);
 
         webTestClient.put()
                 .uri(CUSTOMER_URI + "/{id}", customerId)
@@ -231,7 +234,7 @@ public class CustomerIntegrationTest {
                 .returnResult()
                 .getResponseBody();
 
-        Customer expectedCustomer = new Customer(customerId, newName, email, age);
+        Customer expectedCustomer = new Customer(customerId, newName, email, age, gender);
         assertThat(updatedCustomer).isEqualTo(expectedCustomer);
     }
 

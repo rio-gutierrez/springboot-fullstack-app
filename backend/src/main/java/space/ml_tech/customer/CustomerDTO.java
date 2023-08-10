@@ -7,6 +7,6 @@ package space.ml_tech.customer;
 public record CustomerDTO (
         String name,
         String email,
-        Integer age
-){
+        Integer age,
+        Gender gender) {
 }
