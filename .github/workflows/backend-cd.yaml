@@ -69,7 +69,7 @@ jobs:
         run: >
           curl -X POST -H 'Content-type: application/json' 
           --data '
-          {"text":":docker: Image tag:${{ steps.build-number.outputs.BUILD_NUMBER }} pushed to ${{ DOCKERHUB_URL }}"}
+          {"text":":docker: Image tag:${{ steps.build-number.outputs.BUILD_NUMBER }} pushed to ${{ secrets.DOCKERHUB_URL }}"}
           ' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Update Dockerrun.aws.json api image tag with new build number
