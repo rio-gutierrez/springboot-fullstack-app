@@ -23,6 +23,7 @@ class CustomerRowMapperTest {
                 .name(testName)
                 .email(testEmail)
                 .age(testAge)
+                .gender(Gender.MALE)
                 .build();
 
         CustomerRowMapper customerRowMapper = new CustomerRowMapper();
@@ -32,6 +33,7 @@ class CustomerRowMapperTest {
         Mockito.when(resultSet.getInt("age")).thenReturn(testAge);
         Mockito.when(resultSet.getString("name")).thenReturn(testName);
         Mockito.when(resultSet.getString("email")).thenReturn(testEmail);
+        Mockito.when(resultSet.getString("gender")).thenReturn(Gender.MALE.name());
 
         // When
         Customer actual = customerRowMapper.mapRow(resultSet, 1);

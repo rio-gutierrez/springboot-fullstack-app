@@ -45,7 +45,8 @@ class CustomerServiceTest {
                 randomId,
                 "Foo",
                 "foo@bar.com",
-                100
+                100,
+                Gender.MALE
         );
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
@@ -72,11 +73,12 @@ class CustomerServiceTest {
     void addCustomer() {
         // Given
         String email = "foo@bar.com";
-        CustomerDTO customerDto = new CustomerDTO("foo", email, 15);
+        CustomerDTO customerDto = new CustomerDTO("foo", email, 15, Gender.MALE);
         Customer customer = Customer.builder()
                 .name(customerDto.name())
                 .age(customerDto.age())
                 .email(customerDto.email())
+                .gender(customerDto.gender())
                 .build();
         Mockito.when(customerDao.existsPersonWithEmail(email)).thenReturn(false);
 
@@ -89,6 +91,7 @@ class CustomerServiceTest {
         assertThat(customer.getName()).isEqualTo(customerDto.name());
         assertThat(customer.getEmail()).isEqualTo(customerDto.email());
         assertThat(customer.getAge()).isEqualTo(customerDto.age());
+        assertThat(customer.getGender()).isEqualTo(customerDto.gender());
     }
 
 
@@ -97,7 +100,7 @@ class CustomerServiceTest {
     void willThrowWhenCustomerEmailAlreadyExists() {
         // Given
         String email = "foo@bar.com";
-        CustomerDTO customerDto = new CustomerDTO("foo", email, 15);
+        CustomerDTO customerDto = new CustomerDTO("foo", email, 15, Gender.MALE);
         Mockito.when(customerDao.existsPersonWithEmail(email)).thenReturn(true);
 
         // When
@@ -151,16 +154,18 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
         String updatedEmail = "faa@icloud.bar";
-        CustomerDTO updateRequest = new CustomerDTO("Faa", updatedEmail, 100);
+        CustomerDTO updateRequest = new CustomerDTO("Faa", updatedEmail, 100, Gender.MALE);
         Customer updatedCustomer = Customer.builder()
                 .id(randomId)
                 .name(updateRequest.name())
                 .email(updateRequest.email())
                 .age(updateRequest.age())
+                .gender(updateRequest.gender())
                 .build();
         Mockito.when(customerDao.existsPersonWithEmail(updatedEmail)).thenReturn(false);
 
@@ -172,6 +177,7 @@ class CustomerServiceTest {
         assertThat(updatedCustomer.getName()).isEqualTo(updateRequest.name());
         assertThat(updatedCustomer.getEmail()).isEqualTo(updateRequest.email());
         assertThat(updatedCustomer.getAge()).isEqualTo(updateRequest.age());
+        assertThat(updatedCustomer.getGender()).isEqualTo(updateRequest.gender());
     }
 
 
@@ -184,15 +190,17 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
-        CustomerDTO updateRequest = new CustomerDTO("Faa", null, null);
+        CustomerDTO updateRequest = new CustomerDTO("Faa", null, null, Gender.MALE);
         Customer updatedCustomer = Customer.builder()
                 .id(randomId)
                 .name(updateRequest.name())
                 .email(customer.getEmail())
                 .age(customer.getAge())
+                .gender(customer.getGender())
                 .build();
 
 
@@ -204,6 +212,7 @@ class CustomerServiceTest {
         assertThat(updatedCustomer.getName()).isEqualTo(updateRequest.name());
         assertThat(updatedCustomer.getEmail()).isEqualTo(customer.getEmail());
         assertThat(updatedCustomer.getAge()).isEqualTo(customer.getAge());
+        assertThat(updatedCustomer.getGender()).isEqualTo(customer.getGender());
     }
 
 
@@ -216,15 +225,17 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
-        CustomerDTO updateRequest = new CustomerDTO(null, "faa@bar.io", null);
+        CustomerDTO updateRequest = new CustomerDTO(null, "faa@bar.io", null, Gender.MALE);
         Customer updatedCustomer = Customer.builder()
                 .id(randomId)
                 .name(customer.getName())
                 .email(updateRequest.email())
                 .age(customer.getAge())
+                .gender(customer.getGender())
                 .build();
 
 
@@ -236,6 +247,7 @@ class CustomerServiceTest {
         assertThat(updatedCustomer.getName()).isEqualTo(customer.getName());
         assertThat(updatedCustomer.getEmail()).isEqualTo(updateRequest.email());
         assertThat(updatedCustomer.getAge()).isEqualTo(customer.getAge());
+        assertThat(updatedCustomer.getGender()).isEqualTo(customer.getGender());
     }
 
 
@@ -248,15 +260,17 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
-        CustomerDTO updateRequest = new CustomerDTO(null, null, 120);
+        CustomerDTO updateRequest = new CustomerDTO(null, null, 120, Gender.MALE);
         Customer updatedCustomer = Customer.builder()
                 .id(randomId)
                 .name(customer.getName())
                 .email(customer.getEmail())
                 .age(updateRequest.age())
+                .gender(customer.getGender())
                 .build();
 
 
@@ -268,6 +282,7 @@ class CustomerServiceTest {
         assertThat(updatedCustomer.getName()).isEqualTo(customer.getName());
         assertThat(updatedCustomer.getEmail()).isEqualTo(customer.getEmail());
         assertThat(updatedCustomer.getAge()).isEqualTo(updateRequest.age());
+        assertThat(updatedCustomer.getGender()).isEqualTo(updateRequest.gender());
     }
 
 
@@ -280,11 +295,12 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
         String updatedEmail = "faa@icloud.bar";
-        CustomerDTO updateRequest = new CustomerDTO(null, updatedEmail, null);
+        CustomerDTO updateRequest = new CustomerDTO(null, updatedEmail, null, Gender.MALE);
         Mockito.when(customerDao.existsPersonWithEmail(updatedEmail)).thenReturn(true);
 
         // When
@@ -306,10 +322,11 @@ class CustomerServiceTest {
                 .name("Foo")
                 .email("foo@bar.com")
                 .age(90)
+                .gender(Gender.MALE)
                 .build();
         Mockito.when(customerDao.selectCustomerById(randomId)).thenReturn(Optional.of(customer));
 
-        CustomerDTO updateRequest = new CustomerDTO(customer.getName(), customer.getEmail(), customer.getAge());
+        CustomerDTO updateRequest = new CustomerDTO(customer.getName(), customer.getEmail(), customer.getAge(), Gender.MALE);
 
         // When
         assertThatThrownBy(() -> customerService.updateCustomer(randomId, updateRequest))

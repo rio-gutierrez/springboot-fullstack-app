@@ -13,7 +13,7 @@ import java.util.List;
 public class CustomerService {
     private final CustomerDao customerDao;
 
-    public CustomerService(@Qualifier("beanOfTypeJdbc") CustomerDao customerDao){
+    public CustomerService(@Qualifier("beanOfTypeJpa") CustomerDao customerDao){
         this.customerDao = customerDao;
     }
 
@@ -41,6 +41,7 @@ public class CustomerService {
                 .name(customerDTO.name())
                 .age(customerDTO.age())
                 .email(customerDTO.email())
+                .gender(customerDTO.gender())
                 .build();
         customerDao.insertCustomer(customer);
     }

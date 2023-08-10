@@ -56,10 +56,10 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestContainers {
 
         // Then
         assertThat(actual).isPresent().hasValueSatisfying(c -> {
-                assertThat(c.getId()).isEqualTo(customerId);
-                assertThat(c.getName()).isEqualTo(customer.getName());
-                assertThat(c.getEmail()).isEqualTo(customer.getEmail());
-                assertThat(c.getAge()).isEqualTo(customer.getAge());
+            assertThat(c.getId()).isEqualTo(customerId);
+            assertThat(c.getName()).isEqualTo(customer.getName());
+            assertThat(c.getEmail()).isEqualTo(customer.getEmail());
+            assertThat(c.getAge()).isEqualTo(customer.getAge());
         });
     }
 
@@ -76,7 +76,6 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestContainers {
         // Then
         assertThat(actual).isEmpty();
     }
-
 
 
     // ------ POST methods ------ //
@@ -292,18 +291,16 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestContainers {
     }
 
 
-
-
-
     // ---- HELPER METHODS ---- //
     void injectCustomer() {
         email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();
 
         customer = Customer.builder()
-            .name(FAKER.name().fullName())
-            .email(email)
-            .age(20)
-            .build();
+                .name(FAKER.name().fullName())
+                .email(email)
+                .age(20)
+                .gender(Gender.MALE)
+                .build();
 
         customerJDBCDataAccessService.insertCustomer(customer);
     }
